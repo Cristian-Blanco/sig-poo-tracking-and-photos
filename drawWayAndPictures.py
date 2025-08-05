@@ -76,6 +76,6 @@ def create_map(gpx_path, pictures_folder):
     print("✅ Mapa creado como index.html")
 
 # ========== 5. Ejecutar ==========
-gpx_path = "Aug_4,_2025_8_06_48_PM.gpx"  # <- Cambia por tu archivo GPX
-pictures_folder = "pictures/"  # <- Cambia si tu carpeta tiene otro nombre
+gpx_path = "assets/coordinates/aug_4,_2025_8_06_48_PM.gpx"  # <- Cambia por tu archivo GPX
+pictures_folder = "assets/pictures/"  # <- Cambia si tu carpeta tiene otro nombre
 create_map(gpx_path, pictures_folder)
