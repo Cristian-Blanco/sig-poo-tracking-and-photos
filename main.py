@@ -1,36 +1,22 @@
-import gpxpy
-import matplotlib.pyplot as plt
+import os
+import sys
 
-def leer_gpx_y_graficar(ruta_gpx):
-    # Leer archivo GPX
-    with open(ruta_gpx, 'r', encoding='utf-8') as archivo:
-        gpx = gpxpy.parse(archivo)
+# Ruta base del proyecto
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-    # Extraer puntos (latitud y longitud)
-    latitudes = []
-    longitudes = []
+# Agregar la carpeta src/ al path
+SRC_DIR = os.path.join(BASE_DIR, 'src')
+sys.path.insert(0, SRC_DIR)
 
-    for track in gpx.tracks:
-        for segmento in track.segments:
-            for punto in segmento.points:
-                latitudes.append(punto.latitude)
-                longitudes.append(punto.longitude)
+# Ahora puedes importar normalmente
+from src.drawWayAndPictures import create_map
 
-    # Verificar si hay puntos
-    if not latitudes or not longitudes:
-        print("No se encontraron puntos en el archivo.")
-        return
+# Entradas
+gpx_path = os.path.join(SRC_DIR, 'assets', 'coordinates', 'aug_4,_2025_8_06_48_PM.gpx')
+pictures_folder = os.path.join(SRC_DIR, 'assets', 'pictures')
 
-    # Dibujar ruta
-    plt.figure(figsize=(10, 6))
-    plt.plot(longitudes, latitudes, marker='o', linestyle='-', color='blue')
-    plt.title('Ruta GPX')
-    plt.xlabel('Longitud')
-    plt.ylabel('Latitud')
-    plt.grid(True)
-    plt.axis('equal')
-    plt.show()
+# Salida
+output_path = os.path.join(BASE_DIR, 'docs', 'index.html')
 
-# Cambia esta ruta por tu archivo GPX
-ruta_del_archivo = 'Aug_4,_2025_8_06_48_PM.gpx'
-leer_gpx_y_graficar(ruta_del_archivo)
+# Crear el mapa
+create_map(gpx_path, pictures_folder, output_path)
