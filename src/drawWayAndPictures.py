@@ -50,7 +50,20 @@ def parse_gpx(file_path):
 
 def create_map(gpx_path, pictures_folder, output_path):
     ruta = parse_gpx(gpx_path)
-    mapa = folium.Map(location=ruta[0], zoom_start=15)
+    mapa = folium.Map(
+        location=ruta[0],
+        zoom_start=16,
+        tiles='CartoDB Positron',
+        control_scale=True
+    )
+
+    # Banner de título arriba a la izquierda
+    title_html = '''
+        <h3 align="center" style="font-family:Arial; font-size:20px">
+        🧭 Caminata Universidad Distrital – 4 de agosto de 2025</h3>
+        '''
+    mapa.get_root().html.add_child(folium.Element(title_html))
+
     folium.PolyLine(ruta, color="blue", weight=3).add_to(mapa)
 
     cluster = MarkerCluster().add_to(mapa)
@@ -59,7 +72,7 @@ def create_map(gpx_path, pictures_folder, output_path):
             img_path = os.path.join(pictures_folder, filename)
             coords = get_gps_from_image(img_path)
             if coords:
-                popup = folium.Popup(f"<b>{filename}</b><br><img src='../{img_path}' width='200'>", max_width=300)
+                popup = folium.Popup(f"<b>{filename}</b><br><img src='{img_path}' width='200'>", max_width=300)
                 folium.Marker(location=coords, popup=popup, icon=folium.Icon(color='red', icon='camera')).add_to(cluster)
 
     mapa.save(output_path)
