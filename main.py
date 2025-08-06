@@ -13,7 +13,7 @@ from src.drawWayAndPictures import create_map
 
 # Entradas
 gpx_path = os.path.join(SRC_DIR, 'assets', 'coordinates', 'aug_4,_2025_8_06_48_PM.gpx')
-pictures_folder = os.path.join(SRC_DIR, 'assets', 'pictures')
+pictures_folder = os.path.join(BASE_DIR, 'docs', 'assets', 'pictures')
 
 # Salida
 output_path = os.path.join(BASE_DIR, 'docs', 'index.html')

@@ -72,7 +72,10 @@ def create_map(gpx_path, pictures_folder, output_path):
             img_path = os.path.join(pictures_folder, filename)
             coords = get_gps_from_image(img_path)
             if coords:
-                popup = folium.Popup(f"<b>{filename}</b><br><img src='{img_path}' width='200'>", max_width=300)
+                popup = folium.Popup(
+                    f"<b>{filename}</b><br><img src='assets/pictures/{filename}' width='200'>",
+                    max_width=300
+                )
                 folium.Marker(location=coords, popup=popup, icon=folium.Icon(color='red', icon='camera')).add_to(cluster)
 
     mapa.save(output_path)
